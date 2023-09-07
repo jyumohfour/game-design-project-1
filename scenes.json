@@ -17,6 +17,32 @@
 				"text": "Wait around for a while.",
 				"text_when_chosen": "You wait around. It's boring. You feel your sanity slowly fade.",
 				"min_san": 0, "max_san": 100, "san_change": -1
+			},
+
+			{
+				"to_scene": "testroom2",
+				"text": "Walk through the door.",
+				"text_when_chosen": "",
+				"min_san": 50, "max_san": 100, "san_change": -1
+			}
+		]
+	},
+
+
+	{
+		"tag": "testroom2",
+		"descs": [
+			{
+				"text": "This room is strange- there's nothing to do except go back to the first.",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "testroom2",
+				"text": "Return the way I came.",
+				"text_when_chosen": "Back to the beginning.",
+				"min_san": 0, "max_san": 100, "san_change": 100
 			}
 		]
 	}
@@ -24,5 +50,4 @@
 
 
 
-	
 ]

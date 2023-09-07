@@ -51,4 +51,5 @@ fn main() {
     println!("{}", scenes[0].descs[0].text);
     println!("{}", scenes[0].options[0].text);
     println!("{}", scenes[0].options[0].text_when_chosen);
+    println!("{}", scenes[1].descs[0].text);
 }
