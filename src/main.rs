@@ -6,10 +6,13 @@ use serde::Deserialize;
 
 #[derive(Deserialize)]
 struct Scene {
-    tag: String,
+    tag: SceneID,
     descs: Vec<Desc>,
     options: Vec<Option>
 }
+
+#[derive(Deserialize, PartialEq, Eq, Clone, Debug)]
+struct SceneID(String);
 
 #[derive(Deserialize)]
 struct Desc {
@@ -19,7 +22,7 @@ struct Desc {
 
 #[derive(Deserialize)]
 struct Option {
-    to_scene: String,
+    to_scene: SceneID,
     text: String,
     text_when_chosen: String,
     min_san: i32,
@@ -28,13 +31,14 @@ struct Option {
 }
 
 struct Gamestate {
-    current_scene: Scene,
+    current_scene: SceneID,
     sanity: i32
 }
 
+
 fn read_scene_data<P: AsRef<Path>>(path: P) -> Result<Vec<Scene>, Box<dyn Error>> {
     let file = File::open(path)?;
-    let reader = BufReader::new(file);
+    let reader: BufReader<File> = BufReader::new(file);
 
     // Read the JSON contents of the file as an instance of `User`.
     let u = serde_json::from_reader(reader)?;
@@ -44,10 +48,14 @@ fn read_scene_data<P: AsRef<Path>>(path: P) -> Result<Vec<Scene>, Box<dyn Error>
 }
 
 fn main() {
-    let scenes = read_scene_data("scenes.json").unwrap();
+    let scenes: Vec<Scene> = read_scene_data("scenes.json").unwrap();
+
+    let mut state:Gamestate = Gamestate {
+        current_scene: scenes[0].tag.clone(),
+        sanity: 100
+    };
     
     // debug - printing room data from the json
-    println!("{}", scenes[0].tag);
     println!("{}", scenes[0].descs[0].text);
     println!("{}", scenes[0].options[0].text);
     println!("{}", scenes[0].options[0].text_when_chosen);
