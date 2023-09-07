@@ -1,0 +1,28 @@
+[
+	{
+		"tag": "testroom1",
+		"descs": [
+			{
+				"text": "Wow! you enter a room. it is empty.",
+				"min_san": 50
+			},
+			{
+				"text": "Wow! you enter a room. there is a scary grue.",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "testroom1",
+				"text": "Wait around for a while.",
+				"text_when_chosen": "You wait around. It's boring. You feel your sanity slowly fade.",
+				"min_san": 0, "max_san": 100, "san_change": -1
+			}
+		]
+	}
+
+
+
+
+	
+]
