@@ -1,6 +1,7 @@
 use std::error::Error;
+use std::io;
+use std::io::Write;
 use std::fs::File;
-use std::io::BufReader;
 use std::path::Path;
 use serde::Deserialize;
 use std::fmt;
@@ -49,7 +50,7 @@ struct Gamestate {
 
 fn read_scene_data<P: AsRef<Path>>(path: P) -> Result<Vec<Scene>, Box<dyn Error>> {
     let file = File::open(path)?;
-    let reader: BufReader<File> = BufReader::new(file);
+    let reader: io::BufReader<File> = io::BufReader::new(file);
 
     let scenes = serde_json::from_reader(reader)?;
     Ok(scenes)
@@ -78,11 +79,10 @@ fn get_desc (scenes: &Vec<Scene>, state: &Gamestate) -> String {
 
     // If you have no valid description, then notify of the error.
     // This shouldn't prevent the game from running, though.
-    return "Strange. You've entered a bizarre land, with no valid descriptions
-        for the room you find yourself in.\nScene ID: ".to_string() + 
-        &scenes[state.scene_i].tag.to_string() + "\n(The scene has " + 
-        descs_len.to_string().as_str() + 
-        " descs that have a min sanity above your current one."
+    return "Strange. You've entered a bizarre land, with no valid descriptions for the room you find yourself in.\nScene ID: ".to_string()
+        + &scenes[state.scene_i].tag.to_string() + "\n(The scene has " 
+        + descs_len.to_string().as_str()
+        + " descs that have a min sanity above your current one."
         
 }
 
@@ -99,6 +99,47 @@ fn get_valid_options_list(scenes: &Vec<Scene>, state: &Gamestate) -> Vec<Option>
     valid_opts
 }
 
+fn get_player_choice(optcount: usize) -> Result<usize, Box<dyn Error>> {
+    // Return an error if the player quits (or something goes wrong).
+
+
+    loop {
+        let mut response = String::new();
+
+        print!("Choose an option: ");
+        io::stdout().flush().unwrap();
+
+        io::stdin().read_line(&mut response).unwrap();
+        response = response.trim().to_string();
+        
+        //First, check that the player didn't quit.
+        if response == "Q" {
+            return Err("manual exit")?
+        }
+
+        //Then, check if it's valid.
+        match response.parse::<usize>() {
+            Ok(u) => {
+                if u <= optcount { // Chose an option, and it's in range.
+                    return Ok(u - 1);
+                } else { // Chose an option outside of range.
+                    println!("Sorry, there is no option with that tag.\nPlease choose an option from 1 to {}.\n",
+                        optcount.to_string().as_str())
+                }
+            }  
+            Err(_) => { // User typed in the wrong format.
+                println!("Could not read response. Please type a number from 1 to {} to choose an option, or type 'Q' to quit.\n",
+                    optcount.to_string().as_str())
+            }
+        }
+    }
+
+    
+
+    
+
+}
+
 fn main() {
     // Initialize the vector of the game's scenes.
     let scenes: Vec<Scene> = read_scene_data(FILE_TO_LOAD).unwrap();
@@ -110,8 +151,7 @@ fn main() {
     };
 
     // Begin the main game loop.
-    let mut exit_bool:bool = false;
-    while !exit_bool {
+    loop {
         
         // Print the current scene.
         println!("{}", get_desc(&scenes, &state));
@@ -132,11 +172,20 @@ fn main() {
 
 
         // TODO: get the player's input.
-        let chosen_opt:usize = 0;
+        let chosen_opt;
+        match get_player_choice(opts.len()) {
+            Ok(u) => chosen_opt = u,
+            Err(_) => {
+                // Player quit game.
+                // TODO: have it printing someone else if an io error happened.
+                println!("Thanks for playing!\nShutting down...");
+                break;
+            }
+        }
 
 
         // Apply the effects of that option.
-        println!("{}", opts[chosen_opt].text_when_chosen);
+        println!("{}\n", opts[chosen_opt].text_when_chosen);
 
         state.sanity += opts[chosen_opt].san_change;
         if state.sanity > MAX_SAN {state.sanity = MAX_SAN}
@@ -146,13 +195,13 @@ fn main() {
         match scene_index_from_tag(&scenes, &state.scene_tag) {
             Ok(u) => state.scene_i = u,
             Err(_) => {
-                println!("ERROR: there is no scene with tag {}.\n
-                Exiting game...", &state.scene_tag.to_string());
+                println!("ERROR: there is no scene with tag {}.\nExiting game...",
+                 &state.scene_tag.to_string());
                 break
             }
         }
 
-        exit_bool = true; // TODO: remove this. it's debug, so that we don't
-                          // loop forever (yet).
+
+
     }
 }
