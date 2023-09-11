@@ -47,6 +47,15 @@ struct Gamestate {
     sanity: i32
 }
 
+#[derive(Debug, Clone)]
+struct ManualExit;
+impl Error for ManualExit {}
+impl fmt::Display for ManualExit {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Thanks for playing!\nShutting down...")
+    }
+}
+
 
 fn read_scene_data<P: AsRef<Path>>(path: P) -> Result<Vec<Scene>, Box<dyn Error>> {
     let file = File::open(path)?;
@@ -56,15 +65,16 @@ fn read_scene_data<P: AsRef<Path>>(path: P) -> Result<Vec<Scene>, Box<dyn Error>
     Ok(scenes)
 }
 
-fn scene_index_from_tag (scenes: &Vec<Scene>, tag:&SceneID) -> Result<usize, Box<dyn Error>> {
+fn scene_index_from_tag (scenes: &Vec<Scene>, tag:&SceneID) -> usize {
     let mut i:usize = 0;
     for scene in scenes {
-        if scene.tag == *tag {return Ok(i)};
+        if scene.tag == *tag {return i};
         i += 1;
     }
 
     // If we haven't returned by now, then there is no scene with that tag.
-    return Err("")? 
+    panic!("there is no scene with tag {}",
+                 &tag.to_string());
 }
 
 fn get_desc (scenes: &Vec<Scene>, state: &Gamestate) -> String {
@@ -79,7 +89,7 @@ fn get_desc (scenes: &Vec<Scene>, state: &Gamestate) -> String {
 
     // If you have no valid description, then notify of the error.
     // This shouldn't prevent the game from running, though.
-    return "Strange. You've entered a bizarre land, with no valid descriptions for the room you find yourself in.\nScene ID: ".to_string()
+    "Strange. You've entered a bizarre land, with no valid descriptions for the room you find yourself in.\nScene ID: ".to_string()
         + &scenes[state.scene_i].tag.to_string() + "\n(The scene has " 
         + descs_len.to_string().as_str()
         + " descs that have a min sanity above your current one."
@@ -114,7 +124,7 @@ fn get_player_choice(optcount: usize) -> Result<usize, Box<dyn Error>> {
         
         //First, check that the player didn't quit.
         if response == "Q" {
-            return Err("manual exit")?
+            return Err(Box::new(ManualExit))
         }
 
         //Then, check if it's valid.
@@ -176,10 +186,9 @@ fn main() {
         let chosen_opt;
         match get_player_choice(opts.len()) {
             Ok(u) => chosen_opt = u,
-            Err(_) => {
+            Err(e) => {
                 // Player quit game.
-                // TODO: have it print someone else if an io error happened.
-                println!("Thanks for playing!\nShutting down...");
+                println!("{}", e);
                 break;
             }
         }
@@ -193,16 +202,6 @@ fn main() {
         else if state.sanity < MIN_SAN {state.sanity = MIN_SAN};
 
         state.scene_tag = opts[chosen_opt].to_scene.clone();
-        match scene_index_from_tag(&scenes, &state.scene_tag) {
-            Ok(u) => state.scene_i = u,
-            Err(_) => {
-                println!("ERROR: there is no scene with tag {}.\nExiting game...",
-                 &state.scene_tag.to_string());
-                break
-            }
-        }
-
-
-
+        state.scene_i = scene_index_from_tag(&scenes, &state.scene_tag);
     }
 }
