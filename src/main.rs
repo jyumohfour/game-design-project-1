@@ -171,13 +171,14 @@ fn main() {
         println!(); // Add a newline between the options and the input.
 
 
-        // TODO: get the player's input.
+
+        // Let the player choose an option.
         let chosen_opt;
         match get_player_choice(opts.len()) {
             Ok(u) => chosen_opt = u,
             Err(_) => {
                 // Player quit game.
-                // TODO: have it printing someone else if an io error happened.
+                // TODO: have it print someone else if an io error happened.
                 println!("Thanks for playing!\nShutting down...");
                 break;
             }
