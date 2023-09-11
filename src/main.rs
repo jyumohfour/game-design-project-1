@@ -3,6 +3,11 @@ use std::fs::File;
 use std::io::BufReader;
 use std::path::Path;
 use serde::Deserialize;
+use std::fmt;
+
+const MIN_SAN:i32 = 0;
+const MAX_SAN:i32 = 100;
+const FILE_TO_LOAD:&str = "scenes.json";
 
 #[derive(Deserialize)]
 struct Scene {
@@ -13,6 +18,11 @@ struct Scene {
 
 #[derive(Deserialize, PartialEq, Eq, Clone, Debug)]
 struct SceneID(String);
+impl fmt::Display for SceneID { 
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.0)
+    }
+}
 
 #[derive(Deserialize)]
 struct Desc {
@@ -45,27 +55,32 @@ fn read_scene_data<P: AsRef<Path>>(path: P) -> Result<Vec<Scene>, Box<dyn Error>
     Ok(scenes)
 }
 
-fn scene_index_from_tag (scenes: &Vec<Scene>, tag:&SceneID) -> i32 {
-    let mut i:i32 = 0;
+fn scene_index_from_tag (scenes: &Vec<Scene>, tag:&SceneID) -> usize {
+    let mut i:usize = 0;
     for scene in scenes {
         if scene.tag == *tag {return i};
         i += 1;
     }
-    return 0; //TODO: add better error handling- what if no scenes with tag?
+
+    // If we haven't returned by now, then there is no scene with that tag.
+    println!("ERROR: there is no scene with tag {}.", &tag.to_string());
+    return 0; 
 }
 
 fn get_desc (scenes: &Vec<Scene>, state: &Gamestate) -> String {
     let mut i: usize = 0;
-    let descs_len = scenes[state.scene_i].descs.len();
+    let descs_len: usize = scenes[state.scene_i].descs.len();
     while i < descs_len {
         if state.sanity >= scenes[state.scene_i].descs[i].min_san {
             return scenes[state.scene_i].descs[i].text.clone();
         }
+        i += 1;
     }
 
     // If you have no valid description, then notify of the error.
     return "Strange. You've entered a bizarre land, with no valid descriptions
-        for the room you find yourself in. (The scene has ".to_string() + 
+        for the room you find yourself in.\nScene ID: ".to_string() + 
+        &scenes[state.scene_i].tag.to_string() + "\n(The scene has " + 
         descs_len.to_string().as_str() + 
         " descs that have a min sanity above your current one."
         
@@ -85,7 +100,8 @@ fn get_valid_options_list(scenes: &Vec<Scene>, state: &Gamestate) -> Vec<Option>
 }
 
 fn main() {
-    let scenes: Vec<Scene> = read_scene_data("scenes.json").unwrap();
+    // Initialize the vector of the game's scenes.
+    let scenes: Vec<Scene> = read_scene_data(FILE_TO_LOAD).unwrap();
 
     let mut state:Gamestate = Gamestate {
         scene_tag: scenes[0].tag.clone(),
@@ -93,6 +109,7 @@ fn main() {
         sanity: 100
     };
 
+    // Begin the main game loop.
     let mut exit_bool:bool = false;
     while !exit_bool {
         
@@ -100,23 +117,34 @@ fn main() {
         println!("{}", get_desc(&scenes, &state));
         println!(); //newline
 
+
         // Print the scene's options.
-        let mut opts = get_valid_options_list(&scenes, &state);
+        let opts = get_valid_options_list(&scenes, &state);
+        if opts.len() == 0 {
+            // TODO: handle case where you have no valid options. 
+            // this happens at the end of the game.
+            println!("todo: handle scene with no options");
+            break;
+        }
         for opt in opts.iter().enumerate() {
             println!("{}: {}", opt.0 + 1, opt.1.text)
         }
         println!(); //newline
 
+
         // TODO: get the player's input.
         let chosen_opt:usize = 0;
 
+
         // Apply the effects of that option.
         println!("{}", opts[chosen_opt].text_when_chosen);
+
         state.sanity += opts[chosen_opt].san_change;
-        // TODO: change the state.
+        if state.sanity > MAX_SAN {state.sanity = MAX_SAN}
+        else if state.sanity < MIN_SAN {state.sanity = MIN_SAN};
 
-
-
+        state.scene_tag = opts[chosen_opt].to_scene.clone();
+        state.scene_i = scene_index_from_tag(&scenes, &state.scene_tag);
 
         exit_bool = true; // TODO: remove this. it's debug, so that we don't
                           // loop forever (yet).
