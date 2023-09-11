@@ -55,16 +55,15 @@ fn read_scene_data<P: AsRef<Path>>(path: P) -> Result<Vec<Scene>, Box<dyn Error>
     Ok(scenes)
 }
 
-fn scene_index_from_tag (scenes: &Vec<Scene>, tag:&SceneID) -> usize {
+fn scene_index_from_tag (scenes: &Vec<Scene>, tag:&SceneID) -> Result<usize, Box<dyn Error>> {
     let mut i:usize = 0;
     for scene in scenes {
-        if scene.tag == *tag {return i};
+        if scene.tag == *tag {return Ok(i)};
         i += 1;
     }
 
     // If we haven't returned by now, then there is no scene with that tag.
-    println!("ERROR: there is no scene with tag {}.", &tag.to_string());
-    return 0; 
+    return Err("")? 
 }
 
 fn get_desc (scenes: &Vec<Scene>, state: &Gamestate) -> String {
@@ -78,6 +77,7 @@ fn get_desc (scenes: &Vec<Scene>, state: &Gamestate) -> String {
     }
 
     // If you have no valid description, then notify of the error.
+    // This shouldn't prevent the game from running, though.
     return "Strange. You've entered a bizarre land, with no valid descriptions
         for the room you find yourself in.\nScene ID: ".to_string() + 
         &scenes[state.scene_i].tag.to_string() + "\n(The scene has " + 
@@ -121,9 +121,8 @@ fn main() {
         // Print the scene's options.
         let opts = get_valid_options_list(&scenes, &state);
         if opts.len() == 0 {
-            // TODO: handle case where you have no valid options. 
-            // this happens at the end of the game.
-            println!("todo: handle scene with no options");
+            // If there are no options, then the game is over.
+            println!("Thanks for playing!\nShutting down...");
             break;
         }
         for opt in opts.iter().enumerate() {
@@ -144,7 +143,14 @@ fn main() {
         else if state.sanity < MIN_SAN {state.sanity = MIN_SAN};
 
         state.scene_tag = opts[chosen_opt].to_scene.clone();
-        state.scene_i = scene_index_from_tag(&scenes, &state.scene_tag);
+        match scene_index_from_tag(&scenes, &state.scene_tag) {
+            Ok(u) => state.scene_i = u,
+            Err(_e) => {
+                println!("ERROR: there is no scene with tag {}.\n
+                Exiting game...", &state.scene_tag.to_string());
+                break
+            }
+        }
 
         exit_bool = true; // TODO: remove this. it's debug, so that we don't
                           // loop forever (yet).
