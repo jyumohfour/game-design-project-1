@@ -87,7 +87,7 @@ fn get_desc (scenes: &Vec<Scene>, state: &Gamestate) -> String {
 }
 
 fn get_valid_options_list(scenes: &Vec<Scene>, state: &Gamestate) -> Vec<Option> {
-    let mut valid_opts = Vec::new();
+    let mut valid_opts: Vec<Option> = Vec::new();
     let opts = scenes[state.scene_i].options.clone();
 
     for opt in opts {
@@ -128,7 +128,7 @@ fn main() {
         for opt in opts.iter().enumerate() {
             println!("{}: {}", opt.0 + 1, opt.1.text)
         }
-        println!(); //newline
+        println!(); // Add a newline between the options and the input.
 
 
         // TODO: get the player's input.
@@ -145,7 +145,7 @@ fn main() {
         state.scene_tag = opts[chosen_opt].to_scene.clone();
         match scene_index_from_tag(&scenes, &state.scene_tag) {
             Ok(u) => state.scene_i = u,
-            Err(_e) => {
+            Err(_) => {
                 println!("ERROR: there is no scene with tag {}.\n
                 Exiting game...", &state.scene_tag.to_string());
                 break
