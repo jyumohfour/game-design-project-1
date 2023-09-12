@@ -123,7 +123,7 @@ fn get_player_choice(optcount: usize) -> Result<usize, Box<dyn Error>> {
         response = response.trim().to_string();
         
         //First, check that the player didn't quit.
-        if response == "Q" {
+        if response == "Q" || response == "q" {
             return Err(Box::new(ManualExit))
         }
 
@@ -177,6 +177,7 @@ fn main() {
         }
         for opt in opts.iter().enumerate() {
             println!("{}: {}", opt.0 + 1, opt.1.text)
+            // the +1 is so that the displayed numbers range from 1 to len
         }
         println!(); // Add a newline between the options and the input.
 

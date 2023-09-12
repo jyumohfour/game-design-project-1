@@ -16,7 +16,7 @@
 				"to_scene": "testroom1",
 				"text": "Wait around for a while.",
 				"text_when_chosen": "You wait around. It's boring. You feel your sanity slowly fade.",
-				"min_san": 0, "max_san": 100, "san_change": -1
+				"min_san": 0, "max_san": 100, "san_change": -20
 			},
 
 			{
