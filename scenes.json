@@ -407,7 +407,7 @@
 		],
 		"options": [
 			{
-				"to_scene": "main16",
+				"to_scene": "main17",
 				"text": "Jump into the fountain and close your eyes",
 				"text_when_chosen": "",
 				"min_san": 0,
@@ -426,7 +426,7 @@
 	},
 
 	{
-		"tag": "main16",
+		"tag": "main17",
 		"descs": [
 			{
 				"text": "It’s silent for a moment. You open your eyes, light blinding you for a moment. You’re in the woods. Behind you is a cave with a deep entrance. You remember it’s where you came from. Congrats, you escaped!",
