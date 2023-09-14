@@ -95,14 +95,753 @@
 				"min_san": 0, "max_san": 100, "san_change": 0
 			}
 		]
+	},
+
+	{
+		"tag": "main5",
+		"descs": [
+			{
+				"text": "You reach the light, which leads to a wall. At this wall are two paths, one going left and one going right. To the left: a tunnel with blue walls and torches on the sides, going straight ahead. To the right: an opening in the floor, just large enough for a person to fit through.",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "main6",
+				"text": "Go left (blue tunnel).",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -20
+			},
+			{
+				"to_scene": "main7",
+				"text": "Go right (field).",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			}
+		]
+	}, 
+
+	{
+		"tag": "main6",
+		"descs": [
+			{
+				"text": "You walk down the blue tunnel. It continues on, nothing particularly interesting. As you go further, a sort of grey-ish fog engulfs you. The further in you go, the harder it is to see. (Sanity -20).",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "main7",
+				"text": "Go back and jump into the opening!",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -10
+			},
+			{
+				"to_scene": "alt5",
+				"text": "Continue forward",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -10
+			}
+		]
+	},
+
+	{
+		"tag": "main7",
+		"descs": [
+			{
+				"text": "You fall onto sand, knee-deep. It’s the only thing you can see around you. As you look around, it seems endless (Sanity -10)",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "main8",
+				"text": "Trudge forward through the sand",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -10
+			},
+			{
+				"to_scene": "main10",
+				"text": "Stick your hands in the sand and see how far down it goes",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -30
+			}
+		]
+	},
+
+	{
+		"tag": "main8",
+		"descs": [
+			{
+				"text": "Nothing. The more you walk forward, the further the light from the opening seems. Only darkness ahead of you. (Sanity -10)",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt7",
+				"text": "Continue going forward",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -10
+			},
+			{
+				"to_scene": "main9",
+				"text": "Stop for a moment",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 15
+			}
+		]
+	},
+
+	{
+		"tag": "main9",
+		"descs": [
+			{
+				"text": "You relax, taking a deep breath. Still more left to go. (Sanity +15)",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "main10",
+				"text": "Continue going forward",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -30
+			},
+			{
+				"to_scene": "alt9",
+				"text": "Take another break",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			}
+		]
+	},
+
+	{
+		"tag": "main10",
+		"descs": [
+			{
+				"text": "Something grabs at your leg, pulling you deeper into the sand! (Sanity -30)",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "main11",
+				"text": "Kick at it",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			},
+			{
+				"to_scene": "main13",
+				"text": "Give in and see what happens",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -40
+			}
+		]
+	},
+
+	{
+		"tag": "main11",
+		"descs": [
+			{
+				"text": "You kick at it but to no avail - it won’t budge! Your whole body is enveloped into the sand now.",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "main13",
+				"text": "Give up and hold your breath",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -40
+			},
+			{
+				"to_scene": "main12",
+				"text": "Continue kicking it",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			}
+		]
+	},
+
+	{
+		"tag": "main12",
+		"descs": [
+			{
+				"text": "You pass out from lack of energy and oxygen. When you wake up, you’re in a bright white room. A single door stands in front of you.",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt6",
+				"text": "Go through the door",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			}
+		]
+	},	
+
+	{
+		"tag": "main13",
+		"descs": [
+			{
+				"text": "You’re pulled further into the sand. Eventually, you’re pulled out into the other side of the sand. You sit atop a rocky ground, a deformed skeleton in front of you, with its hand holding your leg. A marble fountain with a goat statue stands before you. There’s also a lever a few meters away from it, sticking out of a wall (Sanity -40).",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt10",
+				"text": "Drink water out of the fountain",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -10
+			},
+			{
+				"to_scene": "main14",
+				"text": "Walk over to the lever and pull it",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 20
+			}
+		]
+	},	
+
+	{
+		"tag": "main14",
+		"descs": [
+			{
+				"text": "The lever breaks off of the wall. In this space, a small circular opening to the other side of the wall - a green field to a setting sun. In the distance, a person runs around with a child. You recognize that child - it’s you when you were six years old. They’re a good distance away, but they might be able to hear or see you (Sanity +20)",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt11",
+				"text": "Yell at them for help",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			},
+			{
+				"to_scene": "main15",
+				"text": "Walk away from them. It’s not real",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			}
+		]
+	},
+
+	{
+		"tag": "main15",
+		"descs": [
+			{
+				"text": "Walls begin to crumble around you! The floor is also collapsing, as if there’s an earthquake. The fountain remains intact though.",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "main16",
+				"text": "Jump into the fountain and close your eyes",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			},
+			{
+				"to_scene": "alt13",
+				"text": "Run back to the opening in the wall and yell for help",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			}
+		]
+	},
+
+	{
+		"tag": "main16",
+		"descs": [
+			{
+				"text": "Walls begin to crumble around you! The floor is also collapsing, as if there’s an earthquake. The fountain remains intact though.",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "main16",
+				"text": "Jump into the fountain and close your eyes",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			},
+			{
+				"to_scene": "alt13",
+				"text": "Run back to the opening in the wall and yell for help",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			}
+		]
+	},
+
+	{
+		"tag": "main16",
+		"descs": [
+			{
+				"text": "It’s silent for a moment. You open your eyes, light blinding you for a moment. You’re in the woods. Behind you is a cave with a deep entrance. You remember it’s where you came from. Congrats, you escaped!",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "main1",
+				"text": "Start over?",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			}
+		]
+	},
+
+
+	{
+		"tag": "alt1",
+		"descs": [
+			{
+				"text": "A cage covered by a black cloth. As you approach it, the noise gets louder. Then, silence. (Sanity -30)",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt2",
+				"text": "Take off the cloth",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 10
+			},
+			{
+				"to_scene": "main2",
+				"text": "Leave the room",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -5
+			}
+		]
+	},
+
+	{
+		"tag": "alt2",
+		"descs": [
+			{
+				"text": "You pull the cloth off, revealing… an old children’s doll. (Sanity +10)",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt4",
+				"text": "Inspect the doll",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -20
+			},
+			{
+				"to_scene": "main2",
+				"text": "Leave the room",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -5
+			}
+		]
+	},
+	{
+		"tag": "alt3",
+		"descs": [
+			{
+				"text": "A door appears in front of you, replacing the path you were once on.",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt6",
+				"text": "Open the door",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			},
+			{
+				"to_scene": "alt14",
+				"text": "Knock on the door",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -10
+			}
+		]
+	},
+	{
+		"tag": "alt4",
+		"descs": [
+			{
+				"text": "The doll wears what appears to be a school uniform. Small tears all over it, with cotton from inside poking outwards. You put it back, then turn around. The exit is gone, instead replaced by a door. (Sanity -20)",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt6",
+				"text": "Open the door",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			},
+			{
+				"to_scene": "alt14",
+				"text": "Knock on the door",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -10
+			}
+		]
+	},
+	{
+		"tag": "alt5",
+		"descs": [
+			{
+				"text": "The doll wears what appears to be a school uniform. Small tears all over it, with cotton from inside poking outwards. You put it back, then turn around. The exit is gone, instead replaced by a door. (Sanity -20)",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "main7",
+				"text": "Turn around and jump into the open hole",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -10
+			},
+			{
+				"to_scene": "alt15",
+				"text": "Continue running forward",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			}
+		]
+	},
+	{
+		"tag": "alt6",
+		"descs": [
+			{
+				"text": "You open the door slowly, then all the way, revealing: an empty school classroom. Desks lined up and a clear whiteboard. Windows are lined up against the side of the room. On the front desk, a notebook clearly opened before.",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt8",
+				"text": "Open the notebook and read it",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			},
+			{
+				"to_scene": "alt10",
+				"text": "Go to the windows and look outside",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -10
+			}
+		]
+	},
+	{
+		"tag": "alt7",
+		"descs": [
+			{
+				"text": "A sound. Dozens of meters from where you came from, something heavy fell into the sand. You turn around, looking for it. No sign. (Sanity -10)",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt9",
+				"text": "Turn around and continue forward",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			},
+			{
+				"to_scene": "main10",
+				"text": "Burrow yourself into the sand and hide",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -30
+			}
+		]
+	},
+	{
+		"tag": "alt8",
+		"descs": [
+			{
+				"text": "You open the notebook. Inside it is a drawing of a child. On the right end of the page, an arrow pointing to the next page saying “more”",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt12",
+				"text": "Keep reading",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -30
+			},
+			{
+				"to_scene": "alt14",
+				"text": "Close the book",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -10
+			}
+		]
+	},
+	{
+		"tag": "alt9",
+		"descs": [
+			{
+				"text": "Another noise from the same area. You stop and turn around again. No sign of anything again. Then, something sticking out of the sand for a moment… then back into the sand. Then, you see something moving through the sand, making its way to you- and stops.",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "main10",
+				"text": "Reach into the sand to see if anything is there",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -30
+			},
+			{
+				"to_scene": "main10",
+				"text": "Keep going forward",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -30
+			}
+		]
+	},
+	{
+		"tag": "alt10",
+		"descs": [
+			{
+				"text": " You walk up to the window and look outside. Below you are clouds and the sky. It appears you’re displaced all the way up in the air possibly. (Sanity -10)",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt12",
+				"text": "Go to the book and open it",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -30
+			},
+			{
+				"to_scene": "alt14",
+				"text": "Look around the room a bit more",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -10
+			}
+		]
+	},
+	{
+		"tag": "alt11",
+		"descs": [
+			{
+				"text": " You walk up to the window and look outside. Below you are clouds and the sky. It appears you’re displaced all the way up in the air possibly. (Sanity -10)",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "main15",
+				"text": "Move away from the opening",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			},
+			{
+				"to_scene": "alt13",
+				"text": "Duck down and hide from the opening",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			}
+		]
+	},
+	{
+		"tag": "alt12",
+		"descs": [
+			{
+				"text": "You flip to the next page. The same drawing, but the child appears to be trying to stand up. You flip to the next page, confirming this. You continue flipping through the pages - it’s a stop motion book. The child stands up and walks up to a box. They shake it, a notebook falling out of it. They pick it up, opening it up. Inside that notebook in large text, “YOU DON’T BELONG HERE”. The child closes the book, then turns, staring directly at you. A knocking on the door (Sanity -30)",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt13",
+				"text": "Close the book and hide behind the desk",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			},
+			{
+				"to_scene": "alt14",
+				"text": "Ask who’s there",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": -10
+			}
+		]
+	},
+	{
+		"tag": "alt13",
+		"descs": [
+			{
+				"text": "As you hide, you hear steps, hoping they won’t find you. But then, something taps you on your shoulder. “Don’t move,” it says.You stay completely still. It asks “do you belong here?”",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt15",
+				"text": "Answer yes",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			},
+			{
+				"to_scene": "main16",
+				"text": "Answer no",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			}
+		]
+	},
+	{
+		"tag": "alt14",
+		"descs": [
+			{
+				"text": "From the door, someone answers, “Close your eyes”. The floor begins to tremble, things falling over (Sanity -10)",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "main16",
+				"text": "Close your eyes",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			},
+			{
+				"to_scene": "alt15",
+				"text": "Run to the door and open it",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			}
+		]
+	},
+	{
+		"tag": "alt15",
+		"descs": [
+			{
+				"text": "Your body freezes, falling over onto your back. Your vision becomes hazy, light shining bright into your eyes. Then… darkness. You failed to exit the dungeon…",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "main1",
+				"text": "Start over",
+				"text_when_chosen": "",
+				"min_san": 0,
+				"max_san": 100,
+				"san_change": 0
+			}
+		]
 	}
-
-
-	// start with main5 here
-
-
-
-	
-
-
 ]
