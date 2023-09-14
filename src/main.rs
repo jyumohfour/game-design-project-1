@@ -160,6 +160,9 @@ fn main() {
         sanity: 100
     };
 
+    // PRINT TITLE
+    println!("A MYSTERIOUS ROOM\n");
+
     // Begin the main game loop.
     loop {
         

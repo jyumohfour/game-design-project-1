@@ -1,53 +1,108 @@
 [
 	{
-		"tag": "testroom1",
+		"tag": "main1",
 		"descs": [
 			{
-				"text": "Wow! you enter a room. it is empty.",
-				"min_san": 50
-			},
-			{
-				"text": "Wow! you enter a room. there is a scary grue.",
+				"text": "You wake up in a mysterious room, with no idea where you are. The first thing you notice is a door directly in front of you.",
 				"min_san": 0
 			}
 		],
 		"options": [
 			{
-				"to_scene": "testroom1",
-				"text": "Wait around for a while.",
-				"text_when_chosen": "You wait around. It's boring. You feel your sanity slowly fade.",
-				"min_san": 0, "max_san": 100, "san_change": -20
+				"to_scene": "main2",
+				"text": "Search this room.",
+				"text_when_chosen": "You begin searhing around. Most of this looks like trash...",
+				"min_san": 0, "max_san": 100, "san_change": -5
 			},
 
 			{
-				"to_scene": "testroom2",
-				"text": "Walk through the door.",
+				"to_scene": "main4",
+				"text": "Go through the door.",
 				"text_when_chosen": "",
-				"min_san": 50, "max_san": 100, "san_change": -1
+				"min_san": 0, "max_san": 100, "san_change": 0
 			}
 		]
 	},
 
 
 	{
-		"tag": "testroom2",
+		"tag": "main2",
 		"descs": [
 			{
-				"text": "This room is strange- there's nothing to do except go back to the first.",
+				"text": "There's something written on the wall. Drawn in red, it says “no escape here.”",
 				"min_san": 0
 			}
 		],
 		"options": [
 			{
-				"to_scene": "testroom1",
-				"text": "Return the way I came.",
-				"text_when_chosen": "Back to the beginning.",
-				"min_san": 0, "max_san": 100, "san_change": 100
+				"to_scene": "main3",
+				"text": "Continue searching the room.",
+				"text_when_chosen": "",
+				"min_san": 0, "max_san": 100, "san_change": 0
+			},
+			{
+				"to_scene": "main4",
+				"text": "Go through the door.",
+				"text_when_chosen": "",
+				"min_san": 0, "max_san": 100, "san_change": 0
+			}
+		]
+	},
+
+	{
+		"tag": "main3",
+		"descs": [
+			{
+				"text": "Nothing else really. Just some bones, a few rags of clothing- suddenly a faint noise, coming from behind you...",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt1",
+				"text": "Turn around, towards the noise.",
+				"text_when_chosen": "",
+				"min_san": 0, "max_san": 100, "san_change": -30
+			},
+			{
+				"to_scene": "main4",
+				"text": "Bolt to the door!",
+				"text_when_chosen": "",
+				"min_san": 0, "max_san": 100, "san_change": 0
+			}
+		]
+	},
+
+	{
+		"tag": "main4",
+		"descs": [
+			{
+				"text": "You walk down what seems like a long tunnel, practically pitch black except a faint light in the far distance. You stop for a moment, your foot stopped by something in the way - a flashlight.",
+				"min_san": 0
+			}
+		],
+		"options": [
+			{
+				"to_scene": "alt3",
+				"text": "Pick it up and turn it on.",
+				"text_when_chosen": "",
+				"min_san": 0, "max_san": 100, "san_change": 0
+			},
+			{
+				"to_scene": "main5",
+				"text": "Ignore it. Continue walking.",
+				"text_when_chosen": "",
+				"min_san": 0, "max_san": 100, "san_change": 0
 			}
 		]
 	}
 
 
+	// start with main5 here
+
+
+
+	
 
 
 ]
